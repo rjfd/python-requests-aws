@@ -80,7 +80,8 @@ class S3Auth(AuthBase):
         for key in headers:
             lk = key.lower()
             try:
-                lk = lk.decode('utf-8')
+                if isinstance(lk, bytes):
+                    lk = lk.decode('utf-8')
             except:
                 pass
             if headers[key] and (lk in interesting_headers.keys()
